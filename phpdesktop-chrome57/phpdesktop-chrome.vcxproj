@@ -338,15 +338,20 @@
   <ItemGroup>
     <None Include="AUTHORS.txt" />
     <None Include="cef\README.txt" />
+    <None Include="Debug\start.conf" />
     <None Include="icon.ico" />
     <None Include=".gitignore" />
     <None Include="icon.png" />
-    <None Include="settings.json">
-      <FileType>Document</FileType>
-    </None>
+    <None Include="settings.json" />
+    <None Include="start.conf" />
+    <None Include="www\blenc_encode.php" />
+    <None Include="www\blenc_myscript.php" />
     <None Include="www\cookies.php" />
     <None Include="www\download.php" />
     <None Include="www\env-variables.php" />
+    <None Include="www\error-404.php" />
+    <None Include="www\error-500.php" />
+    <None Include="www\execute-command.php" />
     <None Include="www\forms.php" />
     <None Include="www\google.php" />
     <None Include="www\html5-video.php" />
@@ -355,17 +360,24 @@
     <None Include="license.txt" />
     <None Include="www\javascript-api.php" />
     <None Include="www\loading-error.php" />
+    <None Include="www\mouse-cursor-loading.php" />
     <None Include="www\no-cache.php" />
+    <None Include="www\open-folder-in-explorer.php" />
+    <None Include="www\php-error.php" />
     <None Include="www\phpinfo.php" />
     <None Include="resource.aps" />
     <None Include="www\chrome-version.php" />
     <None Include="www\popup.php" />
+    <None Include="www\pretty-urls.php" />
+    <None Include="www\request-quota.php" />
     <None Include="www\session.php" />
     <None Include="www\speech-recognition.php" />
     <None Include="www\sqlite.php" />
+    <None Include="www\style.css" />
     <None Include="www\temp-dir.php" />
     <None Include="www\upload.php" />
     <None Include="www\_pdo.php" />
+    <None Include="_conf\app.conf" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
