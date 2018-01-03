@@ -31,7 +31,7 @@ and change the "show_console" setting to false.</li>
 
 <?php
 
-$files = glob("./*");
+$files = glob("./*.php");
 foreach ($files as $file) {
 	$file = basename($file);
     if ($file and $file[0] == "_") {
