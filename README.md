@@ -59,6 +59,9 @@ For those interested in sponsoring a Linux release please see [Issue #221](https
 __New releases RSS/Atom feed__  
 To be notified of new releases subscribe to this [Atom feed](https://github.com/cztomczak/phpdesktop/releases.atom).
 
+## Downloads of modified phpDesktop
+
+Download of modified phpDesktop can be found [here](https://github.com/re-pe/phpdesktop/tree/master/binaries).
 
 ## Support
 
