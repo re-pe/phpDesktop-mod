@@ -59,7 +59,7 @@ json_value* GetApplicationSettings() {
 		return ret;
 	}
 	std::string location = "";
-	const std::string folder = (*jsonValue)["Folder"];
+	const std::string subFolder = (*jsonValue)["SubFolder"];
 	do {
 		std::string settings = (*jsonValue)["Settings"];
 		std::string fileName;
@@ -80,7 +80,7 @@ json_value* GetApplicationSettings() {
 			location = path;
 		else 
 			location = location + "/" + path;
-		if (!folder.empty()) fileName = folder + "/" + fileName;
+		if (!subFolder.empty()) fileName = subFolder + "/" + fileName;
 		if (!location.empty()) fileName = location + "/" + fileName;
 		settingsFileName = fileName;
 		LOG_DEBUG << "Fetching settings from " << settingsFileName << " file";
