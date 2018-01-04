@@ -339,10 +339,12 @@
     <None Include="AUTHORS.txt" />
     <None Include="cef\README.txt" />
     <None Include="Debug\start.conf" />
+    <None Include="Debug\_conf\app.conf" />
     <None Include="icon.ico" />
     <None Include=".gitignore" />
     <None Include="icon.png" />
-    <None Include="settings.json" />
+    <None Include="Release\start.conf" />
+    <None Include="Release\_conf\app.conf" />
     <None Include="start.conf" />
     <None Include="www\blenc_encode.php" />
     <None Include="www\blenc_myscript.php" />

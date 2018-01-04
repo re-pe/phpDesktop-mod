@@ -10,10 +10,20 @@
 
 std::string g_applicationSettingsError = "";
 
+inline bool FileExists(const std::string& name) {
+	struct stat buffer;
+	return (stat(name.c_str(), &buffer) == 0);
+}
+
 json_value* GetJson(std::string jsonFileName) {
 	json_value* ret = new json_value();
 
-	std::string jsonFile = GetExecutableDirectory() + "\\" + jsonFileName;
+	std::string jsonFile = GetExecutableDirectory() + "/" + jsonFileName;
+	if (!FileExists(jsonFile)) {
+		g_applicationSettingsError = "Error: file " + jsonFileName + " does not exist.";
+		LOG_WARNING << g_applicationSettingsError;
+		return ret;
+	}
 	LOG_DEBUG << "Fetching json from " << jsonFileName << " file";
 	std::string contents = GetFileContents(jsonFile);
 	if (contents.empty()) {
@@ -40,38 +50,42 @@ json_value* GetApplicationSettings() {
     static bool settings_fetched = false;
     if (settings_fetched)
         return ret;
-	const std::string startConf = "start.conf";
-	std::string settingsFile = startConf;
-	std::string confDir;
+	const std::string startConfFile = "start.conf";
+	std::string settingsFileName = startConfFile;
+	LOG_DEBUG << "Fetching settings from " << settingsFileName << " file";
 	json_value* jsonValue = new json_value();
+	jsonValue = GetJson(settingsFileName);
+	if ((*jsonValue).type == json_none) {
+		return ret;
+	}
+	std::string location = "";
+	const std::string folder = (*jsonValue)["Folder"];
 	do {
-		if ((*jsonValue).type > json_none) {
-			std::string path = (*jsonValue)["Path"];
-			std::string settings = (*jsonValue)["Settings"];
-			std::string conf;
-			if (settings.empty()) {
-				conf = (*jsonValue)["Conf"];
-				if (conf.empty()) {
-					g_applicationSettingsError = "Error: conf file has neither Conf nor Settings.";
-					LOG_WARNING << g_applicationSettingsError;
-					return ret;
-				}
+		std::string settings = (*jsonValue)["Settings"];
+		std::string fileName;
+		if (settings.empty()) {
+			fileName = (*jsonValue)["FileName"];
+			if (fileName.empty()) {
+				g_applicationSettingsError = "Error: " + settingsFileName + " file has neither FileName nor Settings.";
+				LOG_WARNING << g_applicationSettingsError;
+				return ret;
 			}
-			else {
-				settings_fetched = true;
-				conf = settings;
-			}
-			if (settingsFile == startConf) { 
-				confDir = path; 
-			} else if (!confDir.empty()) conf = confDir + "\\" + conf;
-			if (!path.empty()) conf = path + "\\" + conf;
-			settingsFile = conf;
 		}
-		LOG_DEBUG << "Fetching settings from " << settingsFile << " file";
-		jsonValue = GetJson(settingsFile);
-		if ((*jsonValue).type == json_none || (*jsonValue).type == json_null) {
-			g_applicationSettingsError = "Error while searching settings: file " + settingsFile + " does not contain json value.";
-			LOG_WARNING << g_applicationSettingsError;
+		else {
+			settings_fetched = true;
+			fileName = settings;
+		}
+		std::string path = (*jsonValue)["Path"];
+		if (!path.empty()) if (location.empty()) 
+			location = path;
+		else 
+			location = location + "/" + path;
+		if (!folder.empty()) fileName = folder + "/" + fileName;
+		if (!location.empty()) fileName = location + "/" + fileName;
+		settingsFileName = fileName;
+		LOG_DEBUG << "Fetching settings from " << settingsFileName << " file";
+		jsonValue = GetJson(settingsFileName);
+		if ((*jsonValue).type == json_none) {
 			return ret;
 		}
 	} while (!settings_fetched);
