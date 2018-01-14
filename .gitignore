@@ -1,2 +1,5 @@
 cef_binary_*/
+Debug*/
 Release*/
+*.bat
+*.cmd
