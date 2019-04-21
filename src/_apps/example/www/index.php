@@ -16,13 +16,22 @@
 <b>PHP version:</b> <?php echo phpversion(); ?>
 </p>
 
+<p>
+<b>NOTES:</b>
+<ul>
+<li>To navigate back and forward use mouse context menu</li>
+<li>To disable console window, edit the settings.json file
+and change the "show_console" setting to false.</li>
+</ul>
+</p>
+
 <hr>
 
 <p>Test scripts in the www/ directory:</p>
 
 <?php
 
-$files = glob("./*");
+$files = glob("./*.php");
 foreach ($files as $file) {
 	$file = basename($file);
     if ($file and $file[0] == "_") {
